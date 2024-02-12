@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Love Meter</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .center-screen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
+        /* Style for the image */
+        img {
+            width: 300px; /* Adjust width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="center-screen" style="display: flex; flex-direction: column;">
+        <div class="center-content">
+            <img src="https://i.pinimg.com/originals/df/f4/a0/dff4a00eae35acca9b4aa3aa2df3434b.gif" alt="Love Meter">
+        </div>
+
+        <h3 @click="changeText('heading')">{{ currentHeaderText }}</h3>
+
+        <button type="button" class="btn btn-success mr-2" :style="{ fontSize: yesButtonSize + 'rem' }"
+            :key="yesButtonSize" @click="yesButton()">Yes</button>
+        <button type="button" class="btn btn-danger" @click="changeText('noButton')">No I do not like</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                headerText: ['do you love me',
+                    'do you love me',
+                    'Do you love me very much?',
+                    'Dont you love at all?',
+                    'Never?',
+                ],
+                currentHeaderTextIndex: 0,
+                yesButtonSize: 1, // Define yesButtonSize here
+            },
+            methods: {
+                changeText(button) {
+                    if (button === 'noButton') {
+                        this.currentHeaderTextIndex = (this.currentHeaderTextIndex + 1) % this.headerText.length;
+                        this.yesButtonSize += 5;
+                    }
+                },
+                yesButton() {
+                    alert('I love you too');
+                }
+            },
+            computed: {
+                currentHeaderText() {
+                    return this.headerText[this.currentHeaderTextIndex];
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
